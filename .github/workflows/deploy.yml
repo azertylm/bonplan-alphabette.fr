@@ -1,0 +1,47 @@
+name: Deploy BonPlan sur GitHub Pages
+
+# Déploiement automatique à chaque push sur main (+ déclenchement manuel possible)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois : les nouveaux pushes annulent l'ancien run
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 📥 Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: 📦 Préparer le site statique (build léger)
+        run: |
+          mkdir -p dist
+          cp index.html dist/
+          cp bonplan_manifest.json bonplan_sw.js bonplan_icon.svg bonplan_icon_maskable.svg dist/
+          echo "--- Contenu publié ---"
+          ls -la dist
+
+      - name: ⚙️ Configurer GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📤 Publier l'artefact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: 🚀 Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
