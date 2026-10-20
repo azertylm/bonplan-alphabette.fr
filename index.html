@@ -31,6 +31,24 @@
   --hot: #FF375F;
   --radius: 16px;
   --radius-sm: 10px;
+  --header-bg: rgba(10,10,11,.85);
+}
+/* ─── Thème JOUR (bascule de la base commune) ─── */
+html[data-theme="jour"] {
+  --bg: #F4F2EE;
+  --bg2: #FFFFFF;
+  --bg3: #EAE6E0;
+  --surface: #FFFFFF;
+  --surface2: #F6F4F0;
+  --ink: #171412;
+  --ink2: #4A453F;
+  --muted: #8A837A;
+  --border: #E0DAD2;
+  --border2: #D2CBC1;
+  --accent-glow: rgba(255,92,43,.16);
+  --green-bg: rgba(52,199,89,.14);
+  --red-bg: rgba(255,59,48,.12);
+  --header-bg: rgba(244,242,238,.9);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -49,7 +67,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 /* ─── HEADER ─── */
 header {
   position: sticky; top: 0; z-index: 200;
-  background: rgba(10,10,11,.85);
+  background: var(--header-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -306,9 +324,198 @@ header {
   .form-row { grid-template-columns: 1fr; }
   .toolbar { flex-direction: column; align-items: flex-start; }
 }
+/* Barre écosystème : dégradé sombre dérivé de l'accent (identique à la base) */
+.ab-eco {
+  --ab-eco-bg: color-mix(in oklab, var(--accent) 32%, #0a1226);
+  --ab-eco-ink: #e6ecf7;
+  --ab-eco-muted: #b9c4da;
+}
+
+/* ─── BASE COMMUNE — Barre 1 : écosystème ─── */
+.ab-eco {
+  display: flex; align-items: center; gap: .5rem;
+  height: 2.5rem; padding: 0 .75rem;
+  background: var(--ab-eco-bg);
+  color: var(--ab-eco-ink); font-size: .8rem;
+  overflow: hidden;
+}
+.ab-eco__brand {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-weight: 800; letter-spacing: .02em; color: #fff;
+  text-decoration: none; white-space: nowrap;
+}
+.ab-eco__brand-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.25rem; height: 1.25rem; border-radius: 999px;
+  background: var(--accent); color: #fff;
+  font-size: .68rem; font-weight: 900;
+}
+.ab-eco__sites {
+  display: flex; align-items: center; gap: .25rem;
+  overflow-x: auto; scrollbar-width: none;
+  flex: 1 1 auto; min-width: 0;
+}
+.ab-eco__sites::-webkit-scrollbar { display: none; }
+.ab-site {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .25rem .65rem; border-radius: 999px;
+  color: var(--ab-eco-muted); text-decoration: none; white-space: nowrap;
+  font-size: inherit; transition: background .15s ease, color .15s ease;
+}
+.ab-site:hover, .ab-site:focus-visible { background: rgba(255,255,255,.14); color: #fff; }
+.ab-eco__right { display: flex; align-items: center; gap: .4rem; margin-left: auto; white-space: nowrap; }
+.ab-counter {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .25rem .6rem; border-radius: 999px;
+  background: rgba(255,255,255,.1); color: var(--ab-eco-ink);
+  font-size: inherit; text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+.ab-counter:hover { background: rgba(255,255,255,.2); }
+
+/* ─── BASE COMMUNE — Barre 2 : application ─── */
+.ab-bar {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .45rem .9rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.ab-bar__identity { display: flex; align-items: center; gap: .55rem; min-width: 0; }
+.ab-bar__ident-ico { font-size: 1.15rem; line-height: 1; }
+.ab-bar__titles { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.ab-bar__name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: .95rem; letter-spacing: -.2px; color: var(--ink);
+  white-space: nowrap;
+}
+.ab-bar__tagline {
+  font-size: .72rem; color: var(--muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ab-bar__actions { display: flex; align-items: center; gap: .4rem; margin-left: auto; }
+.ab-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .4rem .8rem; border: 1px solid transparent;
+  border-radius: 999px; background: var(--surface2);
+  color: var(--ink); font-family: 'DM Sans', sans-serif;
+  font-size: .78rem; font-weight: 600; line-height: 1.1;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+  transition: background .15s ease, transform .05s ease, border-color .15s ease;
+}
+.ab-btn:hover { background: var(--bg3); }
+.ab-btn:active { transform: translateY(1px); }
+.ab-btn--ghost { background: transparent; border-color: var(--border2); }
+.ab-btn--ghost:hover { background: var(--surface2); }
+.ab-btn--don { background: var(--hot); color: #fff; }
+.ab-btn--don:hover { background: #e03052; }
+.ab-btn--pass { background: var(--gold); color: #3a2a00; }
+.ab-btn--pass:hover { background: #edc90e; }
+.ab-btn--accent { background: var(--accent); color: #fff; }
+.ab-btn--accent:hover { background: var(--accent-hover, #ff7347); }
+.ab-status { width: .55rem; height: .55rem; border-radius: 999px; background: var(--muted); flex: none; }
+.ab-status--ok { background: var(--green); box-shadow: 0 0 0 3px var(--green-bg); }
+.ab-status--off { background: var(--muted); }
+.ab-density { display: inline-flex; align-items: flex-end; gap: 2px; height: .8rem; }
+.ab-density__bar { width: 3px; border-radius: 2px; background: currentColor; opacity: .28; }
+.ab-density__bar:nth-child(1) { height: 40%; }
+.ab-density__bar:nth-child(2) { height: 70%; }
+.ab-density__bar:nth-child(3) { height: 100%; }
+.ab-density__bar--on { opacity: 1; }
+
+/* Bouton JOUR/NUIT (même codes couleur que la base) */
+.ab-theme--nuit { background: #1e293b; color: #e2e8f0; }
+html[data-theme="jour"] .ab-theme--nuit { background: var(--surface2); color: var(--ink); }
+
+/* Panneau DON (espace dons relayé par le hub) + Dons accessibles depuis les 2 barres */
+.ab-modal-wrap {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,.8);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.ab-don-card {
+  width: min(430px, 94vw); max-height: 86vh; overflow: auto;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 24px; padding: 26px 26px 22px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.5);
+}
+.ab-don-card h3 { font-family: 'Syne', sans-serif; font-size: 20px; margin-bottom: 6px; color: var(--ink); }
+.ab-don-card p { color: var(--ink2); font-size: 13.5px; line-height: 1.65; margin-bottom: 12px; }
+.ab-don-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.ab-don-code {
+  flex: 1; font-family: ui-monospace, monospace; font-size: 12.5px;
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 9px 11px; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ab-don-mini {
+  background: var(--surface2); color: var(--ink);
+  border: 1px solid var(--border2); border-radius: 10px;
+  font-size: 12.5px; font-weight: 600; padding: 8px 14px; cursor: pointer;
+}
+.ab-don-mini:hover { background: var(--bg3); }
+.ab-don-ferme { margin-top: 10px; width: 100%; }
+
+@media (max-width: 760px) {
+  .ab-hide-sm { display: none !important; }
+  .ab-bar__tagline { max-width: 40vw; }
+}
 </style>
+
 </head>
 <body>
+
+<!-- ═══════════ BASE COMMUNE — Barre 1 : écosystème ═══════════ -->
+<div class="ab-eco">
+  <a class="ab-eco__brand" href="https://alphabette.fr" title="alphabette.fr — hub de l'écosystème">
+    <span class="ab-eco__brand-mark">◉</span><span>ALPHABETTE</span>
+  </a>
+  <button type="button" class="ab-btn ab-btn--don" onclick="abOpenDon()" title="Soutenir le projet">♥ DON</button>
+
+  <nav class="ab-eco__sites" aria-label="Autres sites de l'écosystème">
+    <a class="ab-site" href="https://lidarsol.fr" title="LIDARSOL — lidarsol.fr">🌍<span>LIDARSOL</span></a>
+    <a class="ab-site" href="https://proxilien.alphabette.fr" title="Proxilien — proxilien.alphabette.fr">🧭<span>Proxilien</span></a>
+    <a class="ab-site" href="https://iadebat.alphabette.fr" title="IA Débat — iadebat.alphabette.fr">💬<span>IA Débat</span></a>
+    <a class="ab-site" href="https://infosperso.alphabette.fr" title="Info Perso — infosperso.alphabette.fr">📰<span>Info Perso</span></a>
+    <a class="ab-site" href="https://atelier.alphabette.fr" title="L'œil de l'Atelier — atelier.alphabette.fr">🎨<span>L'œil de l'Atelier</span></a>
+  </nav>
+
+  <div class="ab-eco__right">
+    <a class="ab-counter" href="https://alphabette.fr" title="BonPlan est gratuite. Aucun prix, aucun essai, aucune carte bancaire — voir la liste.">
+      <span>gratuit</span>
+    </a>
+    <a class="ab-btn ab-btn--pass" href="https://alphabette.fr" title="Écosystème complet : 40 €/an — voir l'offre">⭐ L'écosystème</a>
+  </div>
+</div>
+
+<!-- ═══════════ BASE COMMUNE — Barre 2 : application ═══════════ -->
+<div class="ab-bar">
+  <div class="ab-bar__identity">
+    <span class="ab-bar__ident-ico" aria-hidden="true">💡</span>
+    <div class="ab-bar__titles">
+      <span class="ab-bar__name">BonPlan</span>
+      <span class="ab-bar__tagline">Les meilleurs conseils du quotidien</span>
+    </div>
+  </div>
+  <div class="ab-bar__actions">
+    <button type="button" class="ab-btn ab-btn--don" onclick="abOpenDon()" title="Soutenir le projet (dons)">♥ DON</button>
+    <button type="button" class="ab-btn ab-btn--ghost" onclick="onAccountClick()" title="Mon compte">
+      👤 Mon Compte <span class="ab-status" id="abAccountDot"></span>
+    </button>
+    <button type="button" class="ab-btn ab-btn--ghost ab-hide-sm" id="abBtnBig" onclick="abDensity()" title="Taille d'affichage">
+      BIG <span class="ab-density" id="abDensity"><span class="ab-density__bar"></span><span class="ab-density__bar"></span><span class="ab-density__bar"></span></span>
+    </button>
+    <button type="button" class="ab-btn ab-hide-sm" onclick="openSettings()" title="Clés d'API (Gemini BYOK, stockée sur cet appareil)">
+      🔑 Clé API : <span id="abKeyLbl">Prêt</span> <span class="ab-status" id="abKeyDot"></span>
+    </button>
+    <button type="button" class="ab-btn ab-btn--ghost ab-hide-sm" id="abBtnFull" onclick="abFullscreen()" title="Plein écran">
+      ⛶ Plein Écran
+    </button>
+    <button type="button" class="ab-btn ab-theme--nuit" id="abBtnTheme" onclick="abTheme()" title="Bascule jour / nuit">
+      ☾ Nuit <span style="width:7px;height:7px;border-radius:999px;background:currentColor;opacity:.8;display:inline-block"></span>
+    </button>
+  </div>
+</div>
 
 <div id="admin-bar" class="admin-bar">🛡️ Mode Modération actif — vous pouvez supprimer les contenus inappropriés</div>
 
@@ -1812,6 +2019,121 @@ function notify(msg) {
   clearTimeout(notifTimer);
   notifTimer = setTimeout(() => n.classList.remove('show'), 3200);
 }
+
+/* ═════════════ BASE COMMUNE — les 2 barres du haut ═══════════════
+   Préférences (thème, densité) stockées sur l'appareil, comme la base
+   @alphabette/shell. Aucune couleur d'identité codée en dur : tout dérive
+   de --accent. L'espace dons est relayé par le hub (/api/config.json). */
+
+const AB_KEY = 'bp3-shell';
+function abLirePrefs() {
+  try { return JSON.parse(localStorage.getItem(AB_KEY) || '{}'); }
+  catch (e) { return {}; }
+}
+function abEcrirePrefs() {
+  try { localStorage.setItem(AB_KEY, JSON.stringify(abPrefs)); } catch (e) {}
+}
+const abPrefs = abLirePrefs();
+if (abPrefs.thème !== 'jour' && abPrefs.thème !== 'nuit') abPrefs.thème = 'nuit';
+if (abPrefs.densité !== 'grand' && abPrefs.densité !== 'max') abPrefs.densité = 'normal';
+
+function appliqueThème() {
+  const jour = abPrefs.thème === 'jour';
+  document.documentElement.dataset.theme = jour ? 'jour' : 'nuit';
+  document.getElementById('abBtnTheme').innerHTML =
+    (jour ? '☀ Jour' : '☾ Nuit') +
+    '<span style="width:7px;height:7px;border-radius:999px;background:currentColor;opacity:.8;display:inline-block"></span>';
+  document.getElementById('abBtnTheme').title = jour
+    ? 'Affichage en mode jour — passer en mode nuit'
+    : 'Affichage en mode nuit — passer en mode jour';
+}
+function abTheme() {
+  abPrefs.thème = abPrefs.thème === 'jour' ? 'nuit' : 'jour';
+  appliqueThème();
+  abEcrirePrefs();
+}
+
+/* Densité : 3 niveaux comme la base (normal / grand / max). Implémenté en
+   zoom pour adapter tout l'app, qui taille ses textes en px. */
+const AB_ZOOMS = { normal: 1, grand: 1.15, max: 1.3 };
+function appliqueDensité() {
+  document.body.style.zoom = AB_ZOOMS[abPrefs.densité] || 1;
+  const bars = document.querySelectorAll('#abDensity .ab-density__bar');
+  const niveau = { normal: 0, grand: 1, max: 2 }[abPrefs.densité] || 0;
+  bars.forEach((b, i) => b.classList.toggle('ab-density__bar--on', i <= niveau));
+  document.getElementById('abBtnBig').title = 'Taille : ' + ({ normal: 'normale', grand: 'grande', max: 'très grande' }[abPrefs.densité]);
+}
+function abDensity() {
+  abPrefs.densité = abPrefs.densité === 'normal' ? 'grand' : abPrefs.densité === 'grand' ? 'max' : 'normal';
+  appliqueDensité();
+  abEcrirePrefs();
+}
+
+/* Plein écran */
+function abFullscreen() {
+  if (document.fullscreenElement) { document.exitFullscreen(); return; }
+  document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+}
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('abBtnFull');
+  btn.textContent = document.fullscreenElement ? '✕ Quitter' : '⛶ Plein Écran';
+});
+
+/* Statut de la clé API (Gemini BYOK) affiché dans la barre 2 */
+function abStatutClé() {
+  const ok = Boolean(localStorage.getItem('bp3-gemini-key'));
+  document.getElementById('abKeyLbl').textContent = ok ? 'Prêt' : 'Non configurée';
+  document.getElementById('abKeyDot').classList.toggle('ab-status--ok', ok);
+}
+abStatutClé();
+window.addEventListener('storage', abStatutClé);
+
+/* Espace dons de la base commune : coordonnées relayées par le hub
+   (data/donation.json → /api/config.json). Aucun montant codé en dur. */
+async function abOpenDon() {
+  let don = null;
+  try {
+    const res = await fetch('https://alphabette.fr/api/config.json', { headers: { 'Accept': 'application/json' } });
+    if (res.ok) {
+      const data = await res.json();
+      don = data && data.donation ? data.donation : null;
+    }
+  } catch (e) { /* hub injoignable : repli ci-dessous */ }
+
+  if (!don || (!don.iban && !don.titulaire)) {
+    // Repli : l'espace dons du hub, dans le même onglet.
+    location.href = 'https://alphabette.fr/don';
+    return;
+  }
+
+  const fond = document.createElement('div');
+  fond.className = 'ab-modal-wrap';
+  fond.innerHTML = `
+    <div class="ab-don-card">
+      <h3>♥ Soutenir l'écosystème</h3>
+      <p>Votre don finance les applications gratuites (BonPlan en fait partie).
+      0 % de frais : le virement se fait depuis votre banque, puis dites-le nous${don.contact ? ' à ' + esc(String(don.contact)) : ''}.</p>
+      ${don.titulaire ? `<div class="ab-don-row"><div class="ab-don-code">${esc(don.titulaire)}</div><button class="ab-don-mini" data-ab-copie="${esc(don.titulaire)}">Copier</button></div>` : ''}
+      ${don.iban ? `<div class="ab-don-row"><div class="ab-don-code">IBAN ${esc(String(don.iban).replace(/\s/g, ' '))}</div><button class="ab-don-mini" data-ab-copie="${esc(String(don.iban).replace(/\s/g, ''))}">Copier</button></div>` : ''}
+      ${don.bic ? `<div class="ab-don-row"><div class="ab-don-code">BIC ${esc(don.bic)}</div><button class="ab-don-mini" data-ab-copie="${esc(don.bic)}">Copier</button></div>` : ''}
+      ${don.objetVirement ? `<div class="ab-don-row"><div class="ab-don-code">Objet : ${esc(don.objetVirement)}</div><button class="ab-don-mini" data-ab-copie="${esc(don.objetVirement)}">Copier</button></div>` : ''}
+      ${don.exemple === true ? '<p style="color:var(--gold)">⚠ Coordonnées d\'exemple pour l\'instant — la base le signale.</p>' : ''}
+      ${don.placeMax ? `<p><strong>Membre fondateur</strong> — places limitées : ${Number(don.placesAttribuees || 0)}/${don.placeMax} attribuées, contreparties à vie.</p>` : ''}
+      <button class="ab-don-mini ab-don-ferme" onclick="this.closest('.ab-modal-wrap').remove()">Fermer</button>
+    </div>`;
+  fond.addEventListener('click', (ev) => {
+    if (ev.target === fond) fond.remove();
+    const b = ev.target.closest && ev.target.closest('[data-ab-copie]');
+    if (b) {
+      navigator.clipboard && navigator.clipboard.writeText(b.dataset.abCopie);
+      notify('Copié !');
+    }
+  });
+  document.body.appendChild(fond);
+}
+
+appliqueThème();
+appliqueDensité();
 </script>
 </body>
 </html>
